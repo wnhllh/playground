@@ -1,4 +1,3 @@
-import { Card, CardBody, CardFooter } from "@nextui-org/card";
 import web1 from "../images/web1.png";
 import web2 from "../images/web2.png";
 import web3 from "../images/web3.png";
@@ -15,8 +14,7 @@ import web13 from "../images/web13.png";
 import web14 from "../images/web14.png";
 import Image from "next/image";
 
-export default function DisplayBox() {
-  const list = [
+export const dataSource = [
     {
       title: "element-hyper",
       img: web1, // Path relative to public folder
@@ -101,47 +99,5 @@ export default function DisplayBox() {
       price: "Charlotte Lewis",
       date: "34 days ago",
     },
-  ];
+];
 
-  return (
-    <div className="gap-2 grid grid-cols-2 sm:grid-cols-4 mb-3">
-      {list.map((item, index) => (
-        <Card
-          shadow="sm"
-          key={index}
-          isPressable
-          className="bg-black bg-opacity-100"
-        >
-          <CardBody className="overflow-visible p-0">
-            {/* <Image
-              shadow="sm"
-              radius="lg"
-              width="100%"
-              alt={item.title}
-              className="w-full object-cover h-[140px]"
-              src={item.img}
-            /> */}
-            <div className="rounded-lg overflow-hidden h-[160px] m-2">
-              {" "}
-              {/* 包裹一层div来实现圆角 */}
-              <Image
-                src={item.img}
-                width={500}
-                height={300} // 添加高度
-                alt={item.title}
-                className="object-cover" // 移除固定高度，使用高度属性
-              />
-            </div>
-          </CardBody>
-          <CardFooter className="text-small justify-between text-white p-1 ">
-            {item.title}
-          </CardFooter>
-          <CardFooter className="text-small justify-left text-white p-1 text-xs">
-            {item.date}
-            <p className="text-default-500 text-white">by @{item.price}</p>
-          </CardFooter>
-        </Card>
-      ))}
-    </div>
-  );
-}
