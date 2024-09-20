@@ -1,3 +1,5 @@
+"use client";
+
 import { Input, Link } from "@nextui-org/react";
 
 export default function SearchBar() {

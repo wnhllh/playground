@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <div className="w-4/5 mx-auto  pt-10">
         <h1 className="text-center text-[45px] font-bold bg-gradient-to-r from-orange-400 to-blue-700 bg-clip-text text-transparent">
-          Build for the web 10x faster
+          Idea, Explore, Choose
         </h1>
         <h1 className="text-white text-center text-[19px] ">
           Chat with AI to build web apps. Sync with GitHub. One-click deploy.

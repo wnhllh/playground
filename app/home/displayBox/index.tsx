@@ -1,4 +1,4 @@
-import { Card, CardBody, CardFooter } from "@nextui-org/react";
+import { Card, CardBody, CardFooter } from "@nextui-org/card";
 import web1 from "../images/web1.png";
 import web2 from "../images/web2.png";
 import web3 from "../images/web3.png";
