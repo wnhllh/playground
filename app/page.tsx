@@ -1,56 +1,47 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
-import { button as buttonStyles } from "@nextui-org/theme";
+'use client';
 
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import HostCard from '@/app/home/HostCard';
+import CardList from './home/CardList';
+import { Input, Link } from '@nextui-org/react';
 
-export default function Home() {
+/**
+ * 
+ *  web-home
+ */
+export default () => {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-xl text-center justify-center">
-        <span className={title()}>Make&nbsp;</span>
-        <span className={title({ color: "violet" })}>beautiful&nbsp;</span>
-        <br />
-        <span className={title()}>
-          websites regardless of your design experience.
-        </span>
-        <div className={subtitle({ class: "mt-4" })}>
-          Beautiful, fast and modern React UI library.
+    <div>
+      <h1 className='text-center text-[45px] font-bold bg-gradient-to-r from-orange-400 to-blue-700 bg-clip-text text-transparent'>
+        Idea, Explore, Choose
+      </h1>
+      <h1 className='text-white text-center text-[19px] '>
+        Less operations, more creative. Lets make UI design easier!
+      </h1>
+      <HostCard />
+      <div className='flex justify-center items-center gap-4 w-4/5 mx-auto mb-20 mt-4'>
+        <div className='flex flex-wrap md:flex-nowrap mb-6 md:mb-0 w-[75%] gap-4 bg-black bg-opacity-70'>
+          <Input
+            placeholder='Tell me what you want to build...'
+            labelPlacement='outside'
+            className='bg-black bg-opacity-70 text-white placeholder-gray-400'
+            // endContent={
+            //   <Link href='#'>
+            //     <svg
+            //       xmlns='http://www.w3.org/2000/svg'
+            //       width='24'
+            //       height='24'
+            //       viewBox='0 -960 960 960'
+            //       className='shrink-0 h-4 w-4 text-gray-600'
+            //       fill='currentColor'
+            //     >
+            //       <path d='M180-120q-24.75 0-42.37-17.63Q120-155.25 120-180v-600q0-24.75 17.63-42.38Q155.25-840 180-840h379q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H180v600h600v-378q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v378q0 24.75-17.62 42.37Q804.75-120 780-120zm520-579h-51q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h51v-51q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v51h51q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5h-51v51q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37zM449-307l-82-108q-5-6-12-6t-12 6l-84 109q-6 8-1.5 16t13.5 8h419q8.5 0 12.75-8t-.75-16L588-458q-5-6-12-6t-12 6zm31-173'></path>
+            //     </svg>
+            //   </Link>
+            // }
+          />
         </div>
       </div>
-
-      <div className="flex gap-3">
-        <Link
-          isExternal
-          className={buttonStyles({
-            color: "primary",
-            radius: "full",
-            variant: "shadow",
-          })}
-          href={siteConfig.links.docs}
-        >
-          Documentation
-        </Link>
-        <Link
-          isExternal
-          className={buttonStyles({ variant: "bordered", radius: "full" })}
-          href={siteConfig.links.github}
-        >
-          <GithubIcon size={20} />
-          GitHub
-        </Link>
-      </div>
-
-      <div className="mt-8">
-        <Snippet hideCopyButton hideSymbol variant="bordered">
-          <span>
-            Get started by editing <Code color="primary">app/page.tsx</Code>
-          </span>
-        </Snippet>
-      </div>
-    </section>
+      <CardList />
+    </div>
   );
 }
