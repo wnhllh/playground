@@ -1,5 +1,4 @@
-'use client';
-import React, { useState } from 'react';
+"use client";
 import { Button, Card, CardBody, CardFooter } from '@nextui-org/react';
 import Image from 'next/image';
 import { useSet } from '@/utils/hooks';

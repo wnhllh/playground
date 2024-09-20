@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import HostCard from '@/app/home/HostCard';
 import CardList from './home/CardList';
-import { Input, Link } from '@nextui-org/react';
+import { Input } from '@nextui-org/react';
 
 /**
  * 
