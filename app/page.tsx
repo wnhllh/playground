@@ -1,14 +1,25 @@
 "use client";
-
+import { useEffect } from 'react';
 import HostCard from '@/app/home/HostCard';
 import CardList from './home/CardList';
 import { Input } from '@nextui-org/react';
+import API from '@/services';
 
 /**
  * 
  *  web-home
  */
 export default () => {
+
+
+  useEffect(() => {
+    getProjectList();
+  }, []);
+
+  const getProjectList = async () => {
+    const res = await API.project.create({})
+  }
+
   return (
     <div>
       <h1 className='text-center text-[45px] font-bold bg-gradient-to-r from-orange-400 to-blue-700 bg-clip-text text-transparent'>
