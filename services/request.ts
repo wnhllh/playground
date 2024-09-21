@@ -3,7 +3,7 @@ import { extend, RequestOptionsInit } from 'umi-request';
 export const requestWithCookie = extend({
   // prefix: '/api',
   credentials: 'include',
-  mode: 'cors'
+  mode: 'no-cors'
 });
 
 
