@@ -1,9 +1,10 @@
 "use client";
+import { useEffect } from 'react';
 import { Button, Card, CardBody, CardFooter } from '@nextui-org/react';
 import Image from 'next/image';
 import { useSet } from '@/utils/hooks';
+import API from '@/services';
 import { dataSource } from './mock';
-
 
 const categroyList = [
     {
@@ -42,11 +43,21 @@ const categroyList = [
 
 export default () => {
   const [state, setState] = useSet({
-    category: 'app'
+    category: 'app',
+    loding: false
   });
 
-  const { category } = state;
+  const { category, loding } = state;
 
+  useEffect(() => {
+    getCardList();
+  }, [category]);
+
+  const getCardList = async () => {
+    const res = await API.project.list({});
+    //
+    setState({ dataSource: []});
+  };
 
   return (
     <div>
