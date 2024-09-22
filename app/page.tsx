@@ -17,7 +17,7 @@ export default () => {
   }, []);
 
   const getProjectList = async () => {
-    const res = await API.project.create({})
+    const res = await API.project.query({})
   }
 
   return (
