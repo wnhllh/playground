@@ -54,11 +54,6 @@ export default () => {
           href="./"
           title="app"
         > */}
-        <Link
-          className="flex items-center gap-1 text-current"
-          onClick={() => router.push('/funnel')} // 修改这行
-          title="app"
-        >
           <span className="text-default-600">Powered by</span>
           <p className="text-primary">AIctopus</p>
         </Link>

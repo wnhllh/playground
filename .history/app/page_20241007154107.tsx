@@ -4,7 +4,6 @@ import HostCard from '@/app/home/HostCard';
 import CardList from './home/CardList';
 import { Link } from '@nextui-org/react';
 import { Navbar } from "@/components/navbar";
-import { useRouter } from 'next/navigation';
 
 import API from '@/services';
 
@@ -48,15 +47,10 @@ export default () => {
       </div>
       </main>
       <footer className="w-full flex items-center justify-center py-3">
-        {/* <Link
+        <Link
           isExternal
           className="flex items-center gap-1 text-current"
           href="./"
-          title="app"
-        > */}
-        <Link
-          className="flex items-center gap-1 text-current"
-          onClick={() => router.push('/funnel')} // 修改这行
           title="app"
         >
           <span className="text-default-600">Powered by</span>
