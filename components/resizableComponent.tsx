@@ -76,7 +76,8 @@ export const ResizableComponent = ({id = '1', width = 'auto', height = 'auto', c
               });
             }
           }}
-          resizeHandles={isPreview ? [] : ['se']}
+          // resizeHandles={isPreview ? [] : ['se']}
+          resizeHandles={[]}
           draggableOpts={{ grid: [GRID_SIZE, GRID_SIZE], disabled: isPreview }}
         >
           <div
@@ -84,7 +85,8 @@ export const ResizableComponent = ({id = '1', width = 'auto', height = 'auto', c
             style={{
               width: '100%',
               height: '100%',
-              border: isPreview ? 'none' : (selectedId === id ? '2px solid #e6f7ff' : '1px solid #ccc'),
+              // border: isPreview ? 'none' : (selectedId === id ? '2px solid #e6f7ff' : '1px solid #ccc'),
+              border: isPreview ? 'none' : (selectedId === id ? '2px solid transparent' : '1px solid #ccc'),
               padding: '5px',
               boxSizing: 'border-box',
               overflow: 'hidden'

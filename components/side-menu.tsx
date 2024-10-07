@@ -37,7 +37,7 @@ export const SideMenu = ({
   return (
     <div className="flex flex-col border-r h-full w-80">
       {/* 页面切换按钮 */}
-      <div className="p-2 border-b">
+      {/* <div className="p-2 border-b">
         <div className="flex flex-wrap gap-2">
           {pages.map((page, index) => (
             <button
@@ -54,7 +54,7 @@ export const SideMenu = ({
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* 聊天历史和功能列表 */}
       {/* <div className="flex-grow overflow-auto p-2">
@@ -81,7 +81,7 @@ export const SideMenu = ({
       {/* 聊天输入框 */}
       <div className="mt-auto p-4 border-t">
         <PlaceholdersAndVanishInput
-          placeholders={['输入您的消息...']}
+          placeholders={['Input your message...', 'Create a new component...', 'Explore the code...']}
           onChange={(e) => setPrompt(e.target.value)}
           onSubmit={(e) => {
             e.preventDefault();
