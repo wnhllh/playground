@@ -16,42 +16,6 @@ import Image from "next/image";
 
 export const dataSource = [
   {
-    title: "element-hyper",
-    img: web1, // Path relative to public folder
-    price: "John Smith",
-    date: "38 mins ago",
-  },
-  {
-    title: "business-gator",
-    img: web2,
-    price: "Emily Davis",
-    date: "2 days ago",
-  },
-  {
-    title: "kiwi-bigfan",
-    img: web3,
-    price: "Michael Johnson",
-    date: "4 days ago",
-  },
-  {
-    title: "jake chen",
-    img: web4,
-    price: "Sarah Lee",
-    date: "4 days ago",
-  },
-  {
-    title: "Avocado-kill",
-    img: web5,
-    price: "Daniel Brown",
-    date: "6 days ago",
-  },
-  {
-    title: "Lemon-bang",
-    img: web6,
-    price: "Olivia Martinez",
-    date: "6 days ago",
-  },
-  {
     title: "road murder",
     img: web7,
     price: "James Wilson",
