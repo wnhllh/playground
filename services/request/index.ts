@@ -16,12 +16,12 @@ export const requestWithCookie = extend({
 /**
  * 请求拦截
  */
-// blueRequest.interceptors.request.use(
+// requestWithCookie.interceptors.request.use(
 //   (url, options) => {
-//     checkUmiDefine();
-
+   
 //     let userInfo;
 //     let token;
+
 //     if (process.env.NODE_ENV === 'development') {
 //       url = BLUE_REQUEST.mock ? `${url}` : `${BLUE_REQUEST.baseUrl}`;
 //       try {

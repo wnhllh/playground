@@ -66,7 +66,7 @@ const CardListItem = forwardRef<HTMLElement, any>(
         </Flexbox>
 
         <Flexbox
-            className={cx(props.actionClassName)}
+            // className={cx(props.actionClassName)}
             horizontal
             gap={4}
             style={{ display: showAction ? undefined : 'none' }}
