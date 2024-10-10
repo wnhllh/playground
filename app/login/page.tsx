@@ -5,18 +5,15 @@ import API from '@/services';
 import { useSet } from '@/utils/hooks';
 import MailIcon from '@/components/svg/MailIcon';
 import LockIcon from '@/components/svg/LockIcon';
-import Toast from '@/components/base/toast';
-
 
 export default () => {
   const [state, setState] = useSet({
     username: '',
-   password: ''
+    password: ''
   });
-
   const { username, password } = state;
 
-  const submitRegister = async () => {
+  const submitLogin = async () => {
     const res = await API.user.login({
       username,
       password
@@ -132,7 +129,7 @@ export default () => {
             />
           </div>
           {/* --------------------sign in by Email 邮箱登录 END------------------ */}
-          <Button className='bg-white text-black text-sm w-[64%] h-7 rounded-md mt-[8%]' onClick={submitRegister}>
+          <Button className='bg-white text-black text-sm w-[64%] rounded-md mt-[8%]' onClick={submitLogin}>
             Sign in
           </Button>
           <div className='flex mt-4'>
@@ -143,9 +140,9 @@ export default () => {
               Sign up
             </Link>
           </div>
-          <Link href='#' className='text-gray-300 text-sm mt-2'>
+          {/* <Link href='#' className='text-gray-300 text-sm mt-2'>
             Forgot password?
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>
