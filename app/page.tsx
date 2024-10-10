@@ -21,7 +21,7 @@ export default () => {
   }, []);
 
   const getProjectList = async () => {
-    const res = await API.project.query({})
+    const res = await API.project.list({})
   }
 
   return (
