@@ -27,7 +27,6 @@ export default () => {
 
   return (
     <div className='flex flex-col flex-grow md:flex-row min-h-screen '>
-      {/* 左半边，只在电脑屏幕宽超一半以上显示  left side, only show while width larger then half screen*/}
       <div className='hidden md:flex flex-col w-1/2   p-10 bg-[rgb(8,51,68)]'>
         <Link href='/' className='text-white text-lg justify-start'>
           AIctopus
@@ -42,7 +41,7 @@ export default () => {
           Build software products, using only a chat interface
         </p>
       </div>
-      {/* 右半边 ，当电脑屏幕不足一半或者移动端单独显示这半  right side show individually, showing while less than half laptop screen or showing on mobile app*/}
+      
       <div className='w-full md:w-1/2 flex justify-center items-center min-h-screen'>
         <div className='w-full max-w-md flex flex-col items-center'>
           <h1 className='text-white text-xl font-bold mb-4'>Login</h1>
