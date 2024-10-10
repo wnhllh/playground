@@ -17,21 +17,13 @@ export default () => {
   const { username, password } = state;
 
   const submitRegister = async () => {
+    const res = await API.user.login({
+      username,
+      password
+    });
 
-    
-
-
-
-
-    try {
-      const params = {
-        username,
-        password, // CryptoJS.S email: username
-      };
-      console.log(params, '-------')
-      const res = await API.user.login(params);
-      const { suc, msg } = res;
-    } catch (error) {
+    if (res?.suc) {
+      location.href = './';
     }
   };
 
