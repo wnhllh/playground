@@ -14,10 +14,7 @@ import API from '@/services';
 import { useSet } from '@/utils/hooks';
 import MailIcon from '@/components/svg/MailIcon';
 import LockIcon from '@/components/svg/LockIcon';
-
-import toast, { Toaster } from 'react-hot-toast';
-
-
+import Toast from '@/components/base/toast';
 
 export default () => {
   const [state, setState] = useSet({
@@ -27,30 +24,26 @@ export default () => {
 
   const { username, password } = state;
 
-  console.log(password, '234234')
-
-
   const submitRegister = async () => {
-    try {
-      const params = {
-        username,
-        password, // CryptoJS.SHA256(password).toString(),
-        email: username
-      };
-      console.log(params, '-------')
-      const res = await API.user.register(params);
-      const { suc, msg } = res;
-      toast('msg')
-    } catch (error) {
-      console.log(error)
+    const params = {
+      username,
+      password, // CryptoJS.SHA256(password).toString(),
+      email: username
+    };
+    const res = await API.user.register(params);
+    if (res?.suc) {
+      Toast.notify({
+        type: 'success',
+        message: res?.msg,
+      });
+      setTimeout(() => {
+        location.href = './login';
+      }, 500)
     }
   };
 
-
-
   return (
     <div className='flex  min-h-screen'>
-      {/*----------------------------左半边蓝色区域，只当浏览器宽度大于一半宽度时显示 left side, only show while the width larger than half screen  -----------------------*/}
       <div className='hidden md:flex flex-col w-1/2 p-10  bg-[rgb(8,51,68)]'>
         <Link href='/' className='text-white text-lg '>
           AIctopus
@@ -66,7 +59,6 @@ export default () => {
           Build software products, using only a chat interface
         </p>
       </div>
-      {/*  -------------------only show right side when width less than half screen or showing on mobile app, 右半边单独展示当屏幕宽度小于一半或者在移动端使用-------------------------- */}
       <div className='w-full md:w-1/2 flex justify-center items-center pb-10'>
         <div className='w-full max-w-md flex flex-col items-center justify-center mt-[8%]'>
           <h1 className='text-white text-xl font-bold pb-2'>
@@ -176,7 +168,7 @@ export default () => {
             </div>
           </div>
 
-          <Button className='bg-white text-black text-sm w-[74%] h-7 rounded-md mt-4' onClick={submitRegister}>
+          <Button className='bg-white text-black text-sm w-[74%] rounded-md mt-4' onClick={submitRegister}>
             Sign Up
           </Button>
           <div className='flex mt-[5%]'>
@@ -192,7 +184,6 @@ export default () => {
           </Link> */}
         </div>
       </div>
-      <Toaster />
     </div>
   );
 }
