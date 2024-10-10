@@ -4,8 +4,6 @@
 import React, { forwardRef } from 'react';
 import { Flexbox } from 'react-layout-kit';
 
-
-
 const CardListItem = forwardRef<HTMLElement, any>(
   (
     {
@@ -66,7 +64,6 @@ const CardListItem = forwardRef<HTMLElement, any>(
         </Flexbox>
 
         <Flexbox
-            // className={cx(props.actionClassName)}
             horizontal
             gap={4}
             style={{ display: showAction ? undefined : 'none' }}
