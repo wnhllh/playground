@@ -9,7 +9,7 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-// import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/button";
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
@@ -23,7 +23,7 @@ import {
   // TwitterIcon,
   // GithubIcon,
   // DiscordIcon,
-  // HeartFilledIcon,
+  HeartFilledIcon,
   SearchIcon,
   Logo,
 } from "@/components/icons";
@@ -95,6 +95,17 @@ export const Navbar = () => {
           <ThemeSwitch />
         </NavbarItem> */}
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+        <NavbarItem className="hidden md:flex">
+          <Button
+            isExternal
+            as={Link}
+            className="text-sm font-normal text-default-600 bg-default-100"
+            href='/login'
+            variant="flat"
+          >
+            Sign in
+          </Button>
+        </NavbarItem>
         {/* <NavbarItem className="hidden md:flex">
           <Button
             isExternal
