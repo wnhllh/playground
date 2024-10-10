@@ -2,101 +2,58 @@ import { extend, RequestOptionsInit } from 'umi-request';
 import { HttpError, SystemError, PremiseError } from './error-type';
 import { errorHandler } from './error-handler';
 
-export const requestWithCookie = extend({
+export const request = extend({
   prefix: '/api',
   credentials: 'include',
   errorHandler,
-  // mode: 'no-cors',
-  // headers: {
-  //   'Content-Type': 'application/x-www-form-urlencoded',
-  // },
+  // mode: 'no-cors'
 });
 
 
 /**
  * 请求拦截
  */
-// requestWithCookie.interceptors.request.use(
-//   (url, options) => {
-   
-//     let userInfo;
-//     let token;
+request.interceptors.request.use(
+  (url, options: any) => {
+    // 从 localStorage 或其他地方获取 token
+  const token = localStorage.getItem('token');
 
-//     if (process.env.NODE_ENV === 'development') {
-//       url = BLUE_REQUEST.mock ? `${url}` : `${BLUE_REQUEST.baseUrl}`;
-//       try {
-//         userInfo = JSON.parse(<string>localStorage.getItem('userInfo'));
-//         token = localStorage.getItem('token');
-//         if (!token) throw Error;
-//       } catch (e) {
-//         message.warn('登录过期或未登录，将为你提供一份临时 token 与 userInfo');
-//         userInfo = {
-//           userNo: 'userNo',
-//           userName: 'userName',
-//           roleNo: 'roleNo',
-//           roleName: 'roleName',
-//         };
-//         token = 'token';
-//       }
-//     }
-//     if (process.env.NODE_ENV === 'production') {
-//       url = `${BLUE_REQUEST.baseUrl}`;
-//       try {
-//         userInfo = JSON.parse(<string>localStorage.getItem('userInfo'));
-//         const token = localStorage.getItem('token');
-//         if (!token) throw Error;
-//       } catch (e) {
-//         throw new PremiseError('登录过期或未登录');
-//       }
-//     }
+    // 如果有 token，将其添加到请求头
+    const headers = {
+      ...options.headers,
+      token, // 假设使用 Bearer Token
+    };
 
-//     // 请求方法统一为 POST
-//     options.method = 'POST';
+    return {
+      url,
+      options: {
+        ...options,
+        headers
+      },
+    };
+  },
+  {
+    global: false,
+  },
+);
 
-//     const httpBody: IHttpBody = {
-//       sysHead: {
-//         system: options?.data?.sysHead?.system || '',
-//         service: options?.data?.sysHead?.service || '',
-//         interface: options?.data?.sysHead?.interface || '',
-//         interfaceVersion: options?.data?.sysHead?.interfaceVersion || '',
-//       },
-//       localHead: {
-//         pageInfo: {
-//           current: options?.data?.localHead?.pageInfo?.current || 1,
-//           pageSize: options?.data?.localHead?.pageInfo?.pageSize || 10,
-//         },
-//         userInfo: {
-//           userNo: userInfo?.userNo || '',
-//           userName: userInfo?.userName || '',
-//           roleNo: userInfo?.roleNo || '',
-//           roleName: userInfo?.roleName || '',
-//         },
-//         deviceInfo: generateDeviceInfo(),
-//       },
-//       body: {
-//         ...options?.data?.body,
-//       },
-//     };
-//     return {
-//       url,
-//       options: {
-//         ...options,
-//         data: httpBody,
-//       },
-//     };
-//   },
-//   {
-//     global: false,
-//   },
-// );
+
+
+
 
 
 /**
  * 响应拦截
  */
-requestWithCookie.interceptors.response.use(
+request.interceptors.response.use(
   response => {
     if (response.status === 200) {
+      const token = response.headers.get('token'); // 假设 token 在 'Authorization' 头部
+      if (token) {
+        console.log('Token:', token);
+        localStorage.setItem('token', token);
+      }
+
       return response
         .clone()
         .json()
@@ -131,5 +88,5 @@ export const runApi = async <ApiParams extends object | URLSearchParams | undefi
     options.data = params;
   }
 
-  return requestWithCookie(api, options);
+  return request(api, options);
 };
