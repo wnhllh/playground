@@ -1,13 +1,8 @@
 "use client";
-import { useEffect } from 'react';
 import HostCard from '@/app/home/HostCard';
 import CardList from './home/CardList';
 import { Link } from '@nextui-org/react';
 import { Navbar } from "@/components/navbar";
-import { useRouter } from 'next/navigation';
-
-import API from '@/services';
-
 import AIInput from './home/AIInput';
 
 /**
@@ -15,15 +10,6 @@ import AIInput from './home/AIInput';
  *  web-home
  */
 export default () => {
-
-
-  useEffect(() => {
-    getProjectList();
-  }, []);
-
-  const getProjectList = async () => {
-    const res = await API.project.query({})
-  }
 
   return (
     <div className="relative flex flex-col h-screen">

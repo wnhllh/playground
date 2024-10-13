@@ -3,8 +3,6 @@ import { useState, useRef } from 'react';
 import { Textarea, Button } from '@nextui-org/react';
 
 import ChatWindow from './ChatWindow';
-import ReactFlow from './ReactFlow';
-import XXx from './ReactFlow/CustomNode';
 
 const Home = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -27,10 +25,10 @@ const Home = () => {
 
       {/* 右侧 React Flow 编辑器 */}
       <div className="flex-grow p-4">
-        <ReactFlow
+        {/* <ReactFlow
           elements={[]} // 这里可以添加你要显示的元素
           style={{ width: '100%', height: '100%' }}
-        />
+        /> */}
       </div>
     </div>
   );
