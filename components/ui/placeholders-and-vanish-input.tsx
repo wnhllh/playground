@@ -14,7 +14,9 @@ export function PlaceholdersAndVanishInput({
 	chatHistory,
 	functionList,
 	setFunctionsList,
-	currentPageId
+	currentPageId,
+	initialValue = '',
+	autoSubmit = false
 }: {
 	placeholders: string[]
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -23,6 +25,8 @@ export function PlaceholdersAndVanishInput({
 	functionList: { id: string; content: string }[]
 	setFunctionsList: (newList: { id: string; content: string }[], pageId: string) => void
 	currentPageId: string
+	initialValue?: string
+	autoSubmit?: boolean
 }) {
 	const [currentPlaceholder, setCurrentPlaceholder] = useState(0)
 
@@ -56,7 +60,7 @@ export function PlaceholdersAndVanishInput({
 	const canvasRef = useRef<HTMLCanvasElement>(null)
 	const newDataRef = useRef<any[]>([])
 	const inputRef = useRef<HTMLInputElement>(null)
-	const [value, setValue] = useState('')
+	const [value, setValue] = useState(initialValue)
 	const [animating, setAnimating] = useState(false)
 
 	// New state variables
@@ -168,9 +172,36 @@ export function PlaceholdersAndVanishInput({
 		animateFrame(start)
 	}
 
+	const initialLoadRef = useRef(true)
+
+	useEffect(() => {
+		if (initialValue && autoSubmit && initialLoadRef.current) {
+			setValue(initialValue)
+			if (inputRef.current) {
+				setTimeout(() => {
+					const enterEvent = new KeyboardEvent('keydown', {
+						key: 'Enter',
+						bubbles: true,
+						cancelable: true,
+					});
+					inputRef.current.dispatchEvent(enterEvent);
+				}, 100)
+			}
+			initialLoadRef.current = false
+		}
+	}, [initialValue, autoSubmit])
+
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter' && !animating) {
-			vanishAndSubmit()
+			e.preventDefault();
+			vanishAndSubmit();
+		}
+	}
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!animating) {
+			setValue(e.target.value)
+			onChange && onChange(e)
 		}
 	}
 
@@ -178,20 +209,19 @@ export function PlaceholdersAndVanishInput({
 		setAnimating(true)
 		draw()
 
-		const value = inputRef.current?.value || ''
 		if (value && inputRef.current) {
 			const maxX = newDataRef.current.reduce(
 				(prev, current) => (current.x > prev ? current.x : prev),
 				0
 			)
 			animate(maxX)
+			onSubmit({ preventDefault: () => {} } as React.FormEvent<HTMLFormElement>)
 		}
 	}
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		vanishAndSubmit()
-		onSubmit && onSubmit(e)
+		e.preventDefault();
+		vanishAndSubmit();
 	}
 
 	const updateFunctionList = (newList: { id: string; content: string }[]) => {
@@ -246,12 +276,7 @@ export function PlaceholdersAndVanishInput({
 					ref={canvasRef}
 				/>
 				<input
-					onChange={(e) => {
-						if (!animating) {
-							setValue(e.target.value)
-							onChange && onChange(e)
-						}
-					}}
+					onChange={handleChange}
 					onKeyDown={handleKeyDown}
 					ref={inputRef}
 					value={value}

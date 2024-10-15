@@ -1,3 +1,4 @@
+// @/app/page.tsx
 "use client";
 import HostCard from '@/app/home/HostCard';
 import CardList from './home/CardList';

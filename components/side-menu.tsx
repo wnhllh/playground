@@ -79,7 +79,7 @@ export const SideMenu = ({
       </div> */}
 
       {/* 聊天输入框 */}
-      <div className="mt-auto p-4 border-t">
+      <div className="mt-auto p-4">
         <PlaceholdersAndVanishInput
           placeholders={['Input your message...', 'Create a new component...', 'Explore the code...']}
           onChange={(e) => setPrompt(e.target.value)}
@@ -91,6 +91,8 @@ export const SideMenu = ({
           functionList={functionList}
           setFunctionsList={setFunctionsList}
           currentPageId={currentPageId}
+          initialValue={prompt}
+          autoSubmit={true}
         />
       </div>
     </div>

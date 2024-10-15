@@ -1,3 +1,4 @@
+// @/components/wrapper.tsx
 import React, { useState, useEffect, createContext } from 'react';
 import { useNode, useEditor } from '@craftjs/core';
 import { MonitorPlay, Smartphone, Tablet, Code, Redo, Undo, Save, Upload, Eye, EyeOff } from 'lucide-react';
@@ -85,7 +86,7 @@ export const Wrapper = ({ children, style = {} }: WrapperProps) => {
     <PreviewContext.Provider value={{ isPreview, setIsPreview }}>
       <div className="w-full h-full flex justify-center" style={style}>
         <div className={`${wrapperWidth} flex flex-col h-full border rounded-sm bg-white shadow-lg`}>
-          <div className="flex justify-between items-center px-4 py-2 bg-gray-100/50 border-b">
+          {/* <div className="flex justify-between items-center px-4 py-2 bg-gray-100/50 border-b">
             <div className="flex gap-1">
               <Button variant="ghost" size="icon" onClick={() => handleIconClick('w-full')}>
                 <MonitorPlay size={18} />
@@ -127,7 +128,7 @@ export const Wrapper = ({ children, style = {} }: WrapperProps) => {
                 {isPreview ? <EyeOff size={18} /> : <Eye size={18} />}
               </Button>
             </div>
-          </div>
+          </div> */}
 
           <div
             className={`${wrapperWidth} flex-1 bg-white rounded-b-lg mx-auto transition-all duration-300 overflow-auto`}

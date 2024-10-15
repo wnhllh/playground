@@ -1,4 +1,4 @@
-// ... Existing imports ...
+// @/components/ui/FunctionList.tsx
 import React, { useState, useEffect } from 'react';
 import {
   Draggable,
@@ -7,6 +7,7 @@ import {
 } from 'react-beautiful-dnd';
 import StrictModeDroppable from './StrictModeDroppable'; // Ensure correct import
 import { nanoid } from 'nanoid';
+import { Plus, Trash2, Check } from 'lucide-react'; // 导入Lucide React图标
 
 function FunctionList({
   functionsList,
@@ -80,9 +81,15 @@ function FunctionList({
     setFunctionsList(newItems, currentPageId);
   };
 
+  // 新增应用更改的函数
+  const applyChanges = () => {
+    // 这里可以添加保存或应用更改的逻辑
+    console.log('应用更改');
+  };
+
   return (
-    <div className="function-list w-full max-w-xl bg-white dark:bg-zinc-800 rounded-lg shadow-md p-4">
-      <DragDropContext onDragEnd={onDragEnd}>
+<div className="function-list w-full max-w-full bg-white dark:bg-zinc-800 rounded-lg shadow-md p-4 overflow-auto">
+  <DragDropContext onDragEnd={onDragEnd}>
         <StrictModeDroppable droppableId="droppable">
           {(provided) => (
             <ul
@@ -105,7 +112,7 @@ function FunctionList({
                           {...provided.dragHandleProps}
                           className="mr-2 cursor-move text-gray-400"
                         >
-                          ::: {/* Drag handle */}
+                          :::
                         </span>
                         <input
                           type="text"
@@ -113,13 +120,13 @@ function FunctionList({
                           onChange={(e) =>
                             updateFunction(func.id, e.target.value)
                           }
-                          className="flex-1 bg-transparent border-none focus:outline-none"
+                          className="flex-1 bg-transparent border-none w-full focus:outline-none"
                         />
                         <button
                           className="ml-2 opacity-0 group-hover:opacity-100 text-red-500"
                           onClick={() => deleteFunction(func.id)}
                         >
-                          Delete
+                          <Trash2 size={18} /> {/* 使用Trash2图标替换Delete文本 */}
                         </button>
                       </div>
                     </li>
@@ -131,13 +138,19 @@ function FunctionList({
           )}
         </StrictModeDroppable>
       </DragDropContext>
-      <div className="mt-2">
+      <div className="mt-4 flex justify-between items-center">
         <button
           onClick={addFunction}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-3 py-1.5 bg-blue-500 text-white text-sm rounded-md hover:bg-green-600 transition-colors duration-200 flex items-center space-x-1 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
         >
-          Add New Function
+          <Plus size={14} />
         </button>
+        <button
+          onClick={applyChanges}
+          className="px-3 py-1.5 bg-green-500 text-white text-sm rounded-md hover:bg-green-600 transition-colors duration-200 flex items-center space-x-1 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
+        >
+          <Check size={14} />        
+          </button>
       </div>
     </div>
   );
