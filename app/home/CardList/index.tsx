@@ -54,7 +54,7 @@ export default () => {
   }, [category]);
 
   const getCardList = async () => {
-    const res = await API.project.list({});
+    const res = await API.project.list({ });
     //
     setState({ dataSource: []});
   };
