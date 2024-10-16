@@ -21,7 +21,7 @@ request.interceptors.request.use(
     // 如果有 token，将其添加到请求头
     const headers = {
       ...options.headers,
-      Authorization: `Bearer ${token}`, // 假设使用 Bearer Token
+      // Authorization: `Bearer ${token}`, // 假设使用 Bearer Token
     };
 
     return {
