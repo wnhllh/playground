@@ -6,7 +6,9 @@ export const request = extend({
   prefix: '/api',
   credentials: 'include',
   errorHandler,
-  // mode: 'no-cors'
+  headers: {
+    'x-use-external-api': 'true'
+  }
 });
 
 
@@ -16,13 +18,29 @@ export const request = extend({
 request.interceptors.request.use(
   (url, options: any) => {
     // 从 localStorage 或其他地方获取 token
+
   const token = localStorage.getItem('token');
+   // 如果有 token，将其添加到请求头
+   const headers = {
+    ...options.headers,
+  };
+
+    if (token !== "undefined") {
+      headers.Authorization = `Bearer ${token}`;
+    } 
 
     // 如果有 token，将其添加到请求头
+<<<<<<< HEAD
     const headers = {
       ...options.headers,
       // Authorization: `Bearer ${token}`, // 假设使用 Bearer Token
     };
+=======
+    // const headers = {
+    //   ...options.headers,
+    //   Authorization: `Bearer ${token}`, // 假设使用 Bearer Token
+    // };
+>>>>>>> 78751932ea06467b91677a7d1f928e57a2789f3b
 
     return {
       url,

@@ -5,6 +5,13 @@ const rewrites = () => {
     {
       source: "/api/:slug*",
       destination: "https://api-dev.aictopusde.com/api/:slug*",
+      has: [
+        {
+          type: 'header',
+          key: 'x-use-external-api',
+          value: 'true'
+        }
+      ]
     },
   ];
 };
@@ -19,3 +26,8 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+
+
+// const nextConfig = {}
+
+// module.exports = nextConfig

@@ -1,24 +1,15 @@
 "use client";
-import React from "react";
-import { Avatar } from "@nextui-org/react";
-import { Input } from "@nextui-org/react";
-import { IoSearch } from "react-icons/io5";
-import { MdOutlineHomeWork } from "react-icons/md";
-import { Button } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import { Avatar, Input, Button, Link, Card, CardBody, CardFooter } from "@nextui-org/react";
+import { IoSearch, IoFileTrayStackedOutline } from "react-icons/io5";
+import { MdOutlineHomeWork, MdFavoriteBorder, MdOutlineMessage, MdHelpOutline } from "react-icons/md";
 import { FiBell } from "react-icons/fi";
-import { MdFavoriteBorder } from "react-icons/md";
-import { MdOutlineMessage } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
-import { MdHelpOutline } from "react-icons/md";
-import { Link } from "@nextui-org/react";
-import { IoFileTrayStackedOutline } from "react-icons/io5";
-import { useEffect } from "react";
-import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import Image from "next/image";
 import { useSet } from "@/utils/hooks";
 import API from "@/services";
-import { dataSource } from "./CardList/mock";
 import SideBar from "./SideBar";
+import { useRouter } from 'next/navigation';
 
 const categroyList = [
   {
@@ -57,27 +48,50 @@ const categroyList = [
 
 export default function Page() {
   const [state, setState] = useSet({
-    category: "app",
-    loding: false,
+    category: "ASSET",
+    loading: false,
+    dataSource: [],
+    pageNum: 1,
+    pageSize: 20,
+    total: 0,
   });
 
-  const { category, loding } = state;
+  const { category, loading, dataSource, pageNum, pageSize, total } = state;
+  const router = useRouter();
 
   useEffect(() => {
     getCardList();
-  }, [category]);
+  }, [category, pageNum, pageSize]);
 
   const getCardList = async () => {
-    const res = await API.project.list({});
-    //
-    setState({ dataSource: [] });
+    setState({ loading: true });
+    try {
+      const res = await API.project.list({ 
+        pageNum, 
+        pageSize, 
+        workType: category 
+      });
+      if (res && res.data && res.data.data) {
+        setState({ 
+          dataSource: res.data.data,
+          total: res.data.total
+        });
+      }
+    } catch (error) {
+      console.error("Failed to fetch project list:", error);
+    } finally {
+      setState({ loading: false });
+    }
   };
+
+  const handleCardClick = (projectCode: string) => {
+    router.push(`/funnel?projectcode=${projectCode}&type=edit`);
+  };
+
   return (
     <div className="flex">
-      {/* 左侧的收藏区域+我的制作  left side section includes collection and my own working */}
       <SideBar />
-      {/* 右侧展示用户分享的  the right part showcases the working users post to the aictopus */}
-      <div className="w-full md:w-5/6  bg-[rgb(40,40,40)] flex-col h-screen p-4 overflow-y-auto">
+      <div className="w-full md:w-5/6 bg-[rgb(40,40,40)] flex-col h-screen p-4 overflow-y-auto">
         <Link href="/" className=" text-gray-300 text-md mb-5">
           <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
             <path
@@ -108,15 +122,16 @@ export default function Page() {
           <div className="gap-4 grid grid-cols-2 sm:grid-cols-4">
             {dataSource.map((item, index) => (
               <Card
-                key={index}
+                key={item.code}
                 className="bg-transparent mb-8 rounded-lg"
                 shadow="sm"
                 isPressable
+                onPress={() => handleCardClick(item.code)}
               >
                 <CardBody className="overflow-visible p-0">
                   <div className="rounded-sm overflow-hidden h-[144px]">
                     <Image
-                      src={item.img}
+                      src={`/images/web${index % 14 + 1}.png`}
                       layout="fill"
                       alt={item.title}
                       objectFit="cover"
@@ -127,9 +142,9 @@ export default function Page() {
                   {item.title}
                 </CardFooter>
                 <CardFooter className="justify-left text-white px-3 py-2 text-xs">
-                  {item.date}
+                  {new Date(item.creationTime).toLocaleString()}
                   <p className="text-default-500 text-white">
-                    by @{item.price}
+                    by @{item.creator}
                   </p>
                 </CardFooter>
               </Card>

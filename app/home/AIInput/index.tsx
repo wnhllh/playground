@@ -3,6 +3,7 @@ import { Input, Textarea, Tabs, Tab } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { TbSend2 } from 'react-icons/tb';
 import { useSet } from '@/utils/hooks';
+import API from '@/services';
 
 const tabs = [
   {
@@ -28,11 +29,25 @@ export default () => {
 
   const { inputValue, visible, type } = state;
 
-
-  const handleSend = () => {
-    // 跳转到目标页面，例如 /target-page
+  const handleSend = async () => {
     if (inputValue) {
-      router.push('/project/sitemap');
+      try {
+        // 调用后端接口创建新项目，获取 projectcode
+        const res = await API.project.create({ workType: "ASSET" });
+        const projectcode = res?.data?.projectCode;
+
+        // 将 inputValue 存储到 localStorage
+        localStorage.setItem('inputValue', inputValue.trim());
+
+        // 构建跳转的 URL，包含 projectcode 和 type
+        const url = `/funnel?projectcode=${projectcode}&type=create`;
+
+        // 跳转到新的页面
+        router.push(url);
+      } catch (error) {
+        console.error('创建项目失败：', error);
+        // 可以在此添加错误提示
+      }
     }
   };
 
@@ -74,7 +89,7 @@ export default () => {
           //       className='shrink-0 h-4 w-4 text-gray-600'
           //       fill='currentColor'
           //     >
-          //       <path d='M180-120q-24.75 0-42.37-17.63Q120-155.25 120-180v-600q0-24.75 17.63-42.38Q155.25-840 180-840h379q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H180v600h600v-378q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v378q0 24.75-17.62 42.37Q804.75-120 780-120zm520-579h-51q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h51v-51q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v51h51q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5h-51v51q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37zM449-307l-82-108q-5-6-12-6t-12 6l-84 109q-6 8-1.5 16t13.5 8h419q8.5 0 12.75-8t-.75-16L588-458q-5-6-12-6t-12 6zm31-173'></path>
+          //       <path d='M180-120q-24.75 0-42.37-17.63Q120-155.25 120-180v-600q0-24.75 17.63-42.38Q155.25-840 180-840h379q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H180v600h600v-378q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v378q0 24.75-17.62 42.37Q804.75-120 780-120zm520-579h-51q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h51v-51q0-12.75 8.68-21.37-8.67-8.62-21.5-8.62-12.82 0-21.32-8.62-8.5-8.62-8.5-21.37zM449-307l-82-108q-5-6-12-6t-12 6l-84 109q-6 8-1.5 16t13.5 8h419q8.5 0 12.75-8t-.75-16L588-458q-5-6-12-6t-12 6zm31-173'></path>
           //     </svg>
           //   </Link>
           // }
