@@ -391,7 +391,6 @@ const App = () => {
             }
           },
           onmessage(event) {
-            console.log('event', event)
             const line = event.data.replace(/data:\s*/g, '');
             generatedCode += line || ' ';
 
