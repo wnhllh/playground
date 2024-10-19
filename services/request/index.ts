@@ -30,17 +30,10 @@ request.interceptors.request.use(
     } 
 
     // 如果有 token，将其添加到请求头
-<<<<<<< HEAD
-    const headers = {
-      ...options.headers,
-      // Authorization: `Bearer ${token}`, // 假设使用 Bearer Token
-    };
-=======
     // const headers = {
     //   ...options.headers,
     //   Authorization: `Bearer ${token}`, // 假设使用 Bearer Token
     // };
->>>>>>> 78751932ea06467b91677a7d1f928e57a2789f3b
 
     return {
       url,
@@ -56,10 +49,6 @@ request.interceptors.request.use(
 );
 
 
-
-
-
-
 /**
  * 响应拦截
  */
@@ -71,7 +60,6 @@ request.interceptors.response.use(
         console.log('Token:', token);
         localStorage.setItem('token', token);
       }
-
       return response
         .clone()
         .json()
@@ -79,6 +67,11 @@ request.interceptors.response.use(
             if (responseJson.suc) {
               return responseJson;
             } else {
+              // 登录失效
+              if (responseJson.code === 3000) {
+                localStorage.setItem('token', '');
+                return;
+              }
               throw new SystemError(responseJson.msg, responseJson.code, responseJson);
             }
         });
