@@ -49,10 +49,6 @@ request.interceptors.request.use(
 );
 
 
-
-
-
-
 /**
  * 响应拦截
  */
@@ -64,7 +60,6 @@ request.interceptors.response.use(
         console.log('Token:', token);
         localStorage.setItem('token', token);
       }
-
       return response
         .clone()
         .json()
@@ -72,6 +67,11 @@ request.interceptors.response.use(
             if (responseJson.suc) {
               return responseJson;
             } else {
+              // 登录失效
+              if (responseJson.code === 3000) {
+                localStorage.setItem('token', '');
+                return;
+              }
               throw new SystemError(responseJson.msg, responseJson.code, responseJson);
             }
         });
