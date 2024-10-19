@@ -8,7 +8,7 @@ import { PreviewContext } from '@/components/wrapper';
 
 const GRID_SIZE = 40; // Size of each grid cell in pixels
 
-export const ResizableComponent = ({id = '1', width = 'auto', height = 'auto', children }) => {
+export const ResizableComponent = ({id = '1', width = '100%', height = '100%', children }) => {
   const { connectors: { connect, drag }, actions: { setProp } } = useNode();
   const containerRef = useRef(null);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
@@ -54,49 +54,26 @@ export const ResizableComponent = ({id = '1', width = 'auto', height = 'auto', c
     <div
       ref={containerRef}
       style={{
-        display: 'inline-block',
-        verticalAlign: 'top',
-        margin: isPreview ? '0' : '5px',
+        display: 'block',
+        width: '100%',
+        height: '100%',
         maxWidth: '100%',
         maxHeight: '100%',
       }}
     >
-      {containerSize.width > 0 && containerSize.height > 0 && (
-        <ResizableBox
-          width={pixelWidth}
-          height={pixelHeight}
-          minConstraints={[GRID_SIZE, GRID_SIZE]}
-          maxConstraints={[containerSize.width, containerSize.height]}
-          onResize={(e, { size }) => {
-            if (!isPreview) {
-              const snappedSize = snapToGrid(size);
-              setProp(props => {
-                props.width = `${snappedSize.width}px`;
-                props.height = `${snappedSize.height}px`;
-              });
-            }
-          }}
-          // resizeHandles={isPreview ? [] : ['se']}
-          resizeHandles={[]}
-          draggableOpts={{ grid: [GRID_SIZE, GRID_SIZE], disabled: isPreview }}
-        >
-          <div
-            ref={(ref) => connect(drag(ref)) as any}
-            style={{
-              width: '100%',
-              height: '100%',
-              // border: isPreview ? 'none' : (selectedId === id ? '2px solid #e6f7ff' : '1px solid #ccc'),
-              border: isPreview ? 'none' : (selectedId === id ? '2px solid transparent' : '1px solid #ccc'),
-              padding: '5px',
-              boxSizing: 'border-box',
-              overflow: 'hidden'
-            }}
-            onClick={handleClick}
-          >
-            {typeof children === 'string' ? children : React.Children.map(children, child => child)}
-          </div>
-        </ResizableBox>
-      )}
+      <div
+        ref={(ref) => connect(drag(ref)) as any}
+        style={{
+          width: '100%',
+          height: '100%',
+          border: isPreview ? 'none' : selectedId === id ? '2px solid transparent' : '1px solid #ccc',
+          boxSizing: 'border-box',
+          overflow: 'hidden',
+        }}
+        onClick={handleClick}
+      >
+        {typeof children === 'string' ? children : React.Children.map(children, (child) => child)}
+      </div>
     </div>
   );
 };
