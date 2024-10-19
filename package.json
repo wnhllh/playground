@@ -14,6 +14,7 @@
   "dependencies": {
     "@clerk/nextjs": "^5.6.4",
     "@codesandbox/sandpack-react": "^2.19.9",
+    "@codesandbox/sandpack-themes": "^2.0.21",
     "@craftjs/core": "^0.2.10",
     "@microsoft/fetch-event-source": "^2.0.1",
     "@nextui-org/button": "2.0.38",

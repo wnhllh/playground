@@ -26,15 +26,15 @@ export const ChatHistory: React.FC<ChatHistoryProps> = ({ messages }) => {
   }, [messages, isExpanded]);
 
   return (
-    <div className="w-full max-w-xl mx-auto mb-4">
+    <div className="w-full max-w-xl mx-auto mb-4 h-[calc(100vh-100px)]">
       <motion.div
         initial={false}
         animate={{ 
-          height: isExpanded ? 'auto' : '40px',
+          height: isExpanded ? '100%' : '40px',
           width: isExpanded ? '100%' : '40px'
         }}
         transition={{ duration: 0.3 }}
-        className="bg-white dark:bg-zinc-800 rounded-lg overflow-hidden shadow-md mx-auto"
+        className="bg-white dark:bg-zinc-800 rounded-lg overflow-hidden shadow-md mx-auto h-full"
         style={{ maxWidth: isExpanded ? '100%' : '40px' }}
       >
         <button
@@ -59,11 +59,11 @@ export const ChatHistory: React.FC<ChatHistoryProps> = ({ messages }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="p-4"
+              className="p-4 h-[calc(100%-40px)]"
             >
-              <Card className="border-none shadow-none">
-                <CardContent className="p-0">
-                  <ScrollArea className="h-[300px] w-full pr-4" ref={scrollAreaRef}>
+              <Card className="border-none shadow-none h-full">
+                <CardContent className="p-0 h-full">
+                  <ScrollArea className="h-full w-full pr-4" ref={scrollAreaRef}>
                     {messages.map((message) => (
                       <div
                         key={message.id}
@@ -73,14 +73,18 @@ export const ChatHistory: React.FC<ChatHistoryProps> = ({ messages }) => {
                         )}
                       >
                         <div className={cn(
-                          "flex items-start space-x-2 max-w-[80%]",
-                          message.isUser ? "flex-row-reverse space-x-reverse" : "flex-row"
+                          "flex items-start max-w-[80%] gap-x-2",
+                          message.isUser ? "flex-row-reverse" : "flex-row"
                         )}>
                           <div className={cn(
-                            "w-8 h-8 rounded-full flex items-center justify-center",
+                            "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0",
                             message.isUser ? "bg-blue-500" : "bg-gray-500"
                           )}>
-                            {message.isUser ? <User size={16} className="text-white" /> : <Bot size={16} className="text-white" />}
+                            {message.isUser ? (
+                              <User size={16} className="text-white" />
+                            ) : (
+                              <Bot size={16} className="text-white" />
+                            )}
                           </div>
                           <div className={cn(
                             "rounded-lg p-3",

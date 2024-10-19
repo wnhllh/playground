@@ -17,6 +17,7 @@ import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { CodeGenerationContext } from '@/contexts/CodeGenerationContext'
 import { componentStrings, componentStrings2, componentStrings3 } from '@/lib/test-string'
 import API from '@/services';
+import { useRouter } from 'next/navigation';
 
 interface PageData {
   id: string
@@ -222,6 +223,7 @@ const App = () => {
   const [isResizing, setIsResizing] = useState(false)
 
   const searchParams = useSearchParams()
+  const router = useRouter();
 
   useEffect(() => {
     const projectCodeParam = searchParams.get('projectcode');
@@ -356,6 +358,19 @@ const App = () => {
     let generatedCode = ''
 
     try {
+      console.log('准备发送请求到:', 'https://api-dev.aictopusde.com/api/v1/projects/ai/assets');
+      console.log('入参', {
+        'headers': {
+          'Content-Type': 'application/json',
+          // 确保在请求头中加入正确的 Authorization
+          Authorization: `Bearer ${localStorage.getItem('token') || ''}`
+        },
+        'body': JSON.stringify({
+          projectCode: projectCode || 'default_project_code', // 使用从 URL 获取的 projectCode
+          prompt,
+          payload: ''
+        })
+      })
       await fetchEventSource(
         'https://api-dev.aictopusde.com/api/v1/projects/ai/assets',
         {
@@ -518,6 +533,45 @@ const App = () => {
     }
   }, [projectCode]);
 
+  const startResizing = (mouseDownEvent: React.MouseEvent) => {
+    setIsResizing(true)
+  }
+
+  const stopResizing = () => {
+    setIsResizing(false)
+  }
+
+  const resize = (mouseMoveEvent: React.MouseEvent) => {
+    if (isResizing) {
+      setSideMenuWidth(mouseMoveEvent.clientX)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('mousemove', resize as any)
+    window.addEventListener('mouseup', stopResizing)
+
+    return () => {
+      window.removeEventListener('mousemove', resize as any)
+      window.removeEventListener('mouseup', stopResizing)
+    }
+  }, [isResizing])
+
+  // 添加一个新的 useEffect 来处理自动触发
+  useEffect(() => {
+    const typeParam = searchParams.get('type');
+    const initialInput = localStorage.getItem('inputValue');
+
+    if (typeParam === 'create' && initialInput) {
+      setPrompt(initialInput);
+      // 使用 setTimeout 来确保在下一个事件循环中触发 handleGenerate
+      setTimeout(() => {
+        handleGenerate();
+      }, 0);
+      localStorage.removeItem('inputValue');
+    }
+  }, [searchParams]); // 依赖于 searchParams 以确保在 URL 参数变化时重新运行
+
   return (
     <CodeGenerationContext.Provider value={contextValue}>
       <div className="h-screen flex flex-col">
@@ -531,29 +585,37 @@ const App = () => {
               Wrapper
             }}
           >
-            <div className="flex flex-1 relative">
-              <SideMenu
-                componentsMap={componentsMap}
-                pages={pagesData}
-                currentPageIndex={currentPageIndex}
-                onPageChange={handlePageChange}
-                chatHistory={chatHistory}
-                functionList={functionList}
-                setFunctionsList={updateFunctionList}
-                currentPageId={`page${currentPageIndex + 1}`}
-                prompt={prompt}
-                setPrompt={setPrompt}
-                handleGenerate={handleGenerate}
+            <div className="flex flex-1 relative" onMouseMove={resize}>
+              <div style={{ width: sideMenuWidth, minWidth: '200px', maxWidth: '50%' }}>
+                <SideMenu
+                  componentsMap={componentsMap}
+                  pages={pagesData}
+                  currentPageIndex={currentPageIndex}
+                  onPageChange={handlePageChange}
+                  chatHistory={chatHistory}
+                  functionList={functionList}
+                  setFunctionsList={updateFunctionList}
+                  currentPageId={`page${currentPageIndex + 1}`}
+                  prompt={prompt}
+                  setPrompt={setPrompt}
+                  handleGenerate={handleGenerate}
+                />
+              </div>
+              <div
+                className="w-1 bg-gray-300 cursor-col-resize"
+                onMouseDown={startResizing}
               />
-              <Viewport>
-                <Frame>
-                  <Element is={Wrapper} canvas id="root_wrapper">
-                    <Element is={DynamicContent} id="dynamic_content">
-                      {null}
+              <div className="flex-1">
+                <Viewport>
+                  <Frame>
+                    <Element is={Wrapper} canvas id="root_wrapper">
+                      <Element is={DynamicContent} id="dynamic_content">
+                        {null}
+                      </Element>
                     </Element>
-                  </Element>
-                </Frame>
-              </Viewport>
+                  </Frame>
+                </Viewport>
+              </div>
             </div>
             {currentPageData && (
               <>
