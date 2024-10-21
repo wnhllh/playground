@@ -383,7 +383,7 @@ const App = () => {
           body: JSON.stringify({
             projectCode: projectCode || 'default_project_code', // 使用从 URL 获取的 projectCode
             prompt,
-            payload: ''
+            payload: 'test'
           }),
           async onopen(response) {
             if (!response.ok || response.headers.get('content-type') !== 'text/event-stream') {

@@ -24,12 +24,12 @@ const SandpackContent = ({ code, isGenerating, id, selectedId }) => {
   return (
     <SandpackLayout>
       <SandpackPreview style={{ height: '1000px' }} />
-      {/* <SandpackCodeEditor 
+      <SandpackCodeEditor 
         showLineNumbers
         style={{ height: '1000px' }}
         // readOnly={isGenerating && id === selectedId} 
         readOnly={false} 
-      /> */}
+      />
     </SandpackLayout>
   );
 };
@@ -72,9 +72,7 @@ export const SandpackWrapper = ({ code, isGenerating, id, selectedId }) => {
           "react-bootstrap": "^2.8.0",
           "bootstrap": "^5.3.1",
           "styled-components": "^5.3.11",
-          "@chakra-ui/react": "^2.6.1",
-          "@chakra-ui/icons": "^2.1.1",
-          "lucide-react": "^0.274.0",
+          ""
           // 数据获取和API
           "axios": "^1.4.0",
           "@tanstack/react-query": "^4.32.6",

@@ -91,7 +91,7 @@ export const componentStrings = [
   `
   <ResizableComponent id="1" width="99%" height="99%" className="p-4">
   <CodeGenerator>
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   ChakraProvider,
   Box,
@@ -119,97 +119,78 @@ import {
   Avatar,
   Tooltip,
   useToast,
-} from "@chakra-ui/react";
-import { HamburgerIcon, SearchIcon, SunIcon, MoonIcon } from "@chakra-ui/icons";
-import { FaUser, FaComments, FaStar } from "react-icons/fa";
-import { MdFeedback } from "react-icons/md";
-import axios from "axios";
+} from '@chakra-ui/react';
+import { HamburgerIcon, SearchIcon, SunIcon, MoonIcon } from '@chakra-ui/icons';
+import { FaUser, FaComments, FaStar, FaFeedback } from 'react-icons/fa';
+import axios from 'axios';
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-  const [searchQuery, setSearchQuery] = useState("");
+  const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+  const [searchQuery, setSearchQuery] = useState('');
   const [comments, setComments] = useState([]);
-  const [feedback, setFeedback] = useState("");
+  const [feedback, setFeedback] = useState('');
   const toast = useToast();
 
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/comments?_limit=5")
-      .then((response) => setComments(response.data))
-      .catch((error) => console.error("Error fetching comments:", error));
+    axios.get('https://jsonplaceholder.typicode.com/comments?_limit=5')
+      .then(response => setComments(response.data))
+      .catch(error => console.error('Error fetching comments:', error));
   }, []);
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     toast({
-      title: isLogin
-        ? "Logged in successfully."
-        : "Account created successfully.",
-      status: "success",
+      title: isLogin ? 'Logged in successfully.' : 'Account created successfully.',
+      status: 'success',
       duration: 3000,
       isClosable: true,
     });
-    setFormData({ username: "", email: "", password: "" });
+    setFormData({ username: '', email: '', password: '' });
   };
 
   const handleFeedback = () => {
     if (!feedback.trim()) {
       toast({
-        title: "Feedback cannot be empty.",
-        status: "error",
+        title: 'Feedback cannot be empty.',
+        status: 'error',
         duration: 3000,
         isClosable: true,
       });
       return;
     }
     toast({
-      title: "Thank you for your feedback!",
-      status: "success",
+      title: 'Thank you for your feedback!',
+      status: 'success',
       duration: 3000,
       isClosable: true,
     });
-    setFeedback("");
+    setFeedback("');
   };
 
   return (
     <ChakraProvider>
-      <Box bg={isDarkMode ? "gray.800" : "white"} color={isDarkMode ? "white" : "gray.800"} minHeight="100vh">
+      <Box bg={isDarkMode ? "#3A3D42" : "#FFFFFF"} color={isDarkMode ? 'white' : '#3A3D42'}>
         <Flex
           as="nav"
           align="center"
           justify="space-between"
           padding="1.5rem"
+          bg={isDarkMode ? '#3A3D42' : '#FFFFFF'}
           borderBottom="1px solid"
-          borderColor={isDarkMode ? "gray.600" : "gray.200"}
+          borderColor={isDarkMode ? '#F8F9FA' : '#E2D1F9'}
         >
           <Heading as="h1" size="lg" fontFamily="Montserrat, sans-serif">
             MyApp
           </Heading>
-          <IconButton
-            icon={<HamburgerIcon />}
-            variant="outline"
-            onClick={onOpen}
-            display={{ base: "block", md: "none" }}
-            aria-label="Open Menu"
-          />
-          <HStack spacing={8} display={{ base: "none", md: "flex" }}>
-            {["Home", "About", "Services", "Contact"].map((item) => (
-              <Button
-                key={item}
-                variant="ghost"
-                fontFamily="Open Sans, sans-serif"
-                _hover={{ textDecoration: "underline" }}
-              >
+          
+          <HStack spacing={8} display={{ base: 'none', md: 'flex' }}>
+            {['Home', 'About', 'Services', 'Contact'].map(item => (
+              <Button key={item} variant="ghost" fontFamily="Open Sans, sans-serif" _hover={{ textDecoration: 'underline' }}>
                 {item}
               </Button>
             ))}
@@ -231,7 +212,7 @@ const App = () => {
               <MenuList>
                 <MenuItem icon={<FaComments />}>Comments</MenuItem>
                 <MenuItem icon={<FaStar />}>Ratings</MenuItem>
-                <MenuItem icon={<MdFeedback />}>Feedback</MenuItem>
+                <MenuItem icon={<FaFeedback />}>Feedback</MenuItem>
               </MenuList>
             </Menu>
           </HStack>
@@ -244,7 +225,7 @@ const App = () => {
             <DrawerHeader>Menu</DrawerHeader>
             <DrawerBody>
               <VStack spacing={4} align="flex-start">
-                {["Home", "About", "Services", "Contact"].map((item) => (
+                {['Home', 'About', 'Services', 'Contact'].map(item => (
                   <Button key={item} variant="ghost" width="100%">
                     {item}
                   </Button>
@@ -256,109 +237,68 @@ const App = () => {
 
         {/* Main Content */}
         <Box p={8} maxW="1200px" mx="auto">
-          <Flex
-            direction={{ base: "column", md: "row" }}
-            justify="space-between"
-            mb={8}
-          >
+          <Flex direction={{ base: 'column', md: 'row' }} justify="space-between" mb={8}>
             {/* Registration/Login Form */}
-            <Box
-              w={{ base: "100%", md: "45%" }}
-              p={6}
-              borderWidth={1}
-              borderRadius="lg"
-              bg={isDarkMode ? "gray.700" : "gray.50"}
-            >
-              <Heading
-                as="h2"
-                size="md"
-                mb={4}
-                fontFamily="Montserrat, sans-serif"
-              >
-                {isLogin ? "Login" : "Register"}
+            <Box w={{ base: '100%', md: '45%' }} p={6} borderWidth={1} borderRadius="lg" bg={isDarkMode ? '#3A3D42' : '#F8F9FA'}>
+              <Heading as="h2" size="md" mb={4} fontFamily="Montserrat, sans-serif">
+                {isLogin ? 'Login' : 'Register'}
               </Heading>
               <form onSubmit={handleSubmit}>
                 {!isLogin && (
                   <FormControl id="username" mb={4} isRequired>
-                    <FormLabel fontFamily="Open Sans, sans-serif">
-                      Username
-                    </FormLabel>
+                    <FormLabel fontFamily="Open Sans, sans-serif">Username</FormLabel>
                     <Input
                       type="text"
                       name="username"
                       value={formData.username}
                       onChange={handleChange}
                       placeholder="Enter your username"
-                      bg={isDarkMode ? "gray.600" : "white"}
-                      borderColor={isDarkMode ? "gray.500" : "gray.200"}
+                      bg="#FFFFFF"
+                      borderColor="#F8F9FA"
                     />
                   </FormControl>
                 )}
                 <FormControl id="email" mb={4} isRequired>
-                  <FormLabel fontFamily="Open Sans, sans-serif">
-                    Email
-                  </FormLabel>
+                  <FormLabel fontFamily="Open Sans, sans-serif">Email</FormLabel>
                   <Input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter your email"
-                    bg={isDarkMode ? "gray.600" : "white"}
-                    borderColor={isDarkMode ? "gray.500" : "gray.200"}
+                    bg="#FFFFFF"
+                    borderColor="#F8F9FA"
                   />
                 </FormControl>
                 <FormControl id="password" mb={4} isRequired>
-                  <FormLabel fontFamily="Open Sans, sans-serif">
-                    Password
-                  </FormLabel>
+                  <FormLabel fontFamily="Open Sans, sans-serif">Password</FormLabel>
                   <Input
                     type="password"
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Enter your password"
-                    bg={isDarkMode ? "gray.600" : "white"}
-                    borderColor={isDarkMode ? "gray.500" : "gray.200"}
+                    bg="#FFFFFF"
+                    borderColor="#F8F9FA"
                   />
                 </FormControl>
-                <Button
-                  type="submit"
-                  colorScheme="blue"
-                  width="100%"
-                  mb={4}
-                  fontFamily="Open Sans, sans-serif"
-                >
-                  {isLogin ? "Login" : "Register"}
+                <Button type="submit" colorScheme="blue" width="100%" mb={4} fontFamily="Open Sans, sans-serif">
+                  {isLogin ? 'Login' : 'Register'}
                 </Button>
               </form>
               <Button
                 variant="link"
-                color={isDarkMode ? "blue.200" : "blue.500"}
+                color={isDarkMode ? '#F8F9FA' : '#3A3D42'}
                 onClick={() => setIsLogin(!isLogin)}
                 fontFamily="Open Sans, sans-serif"
               >
-                {isLogin
-                  ? "Don't have an account? Register"
-                  : "Already have an account? Login"}
+                {isLogin ? "Don't have an account? Register" : 'Already have an account? Login'}
               </Button>
             </Box>
 
             {/* Search and Interactive Features */}
-            <Box
-              w={{ base: "100%", md: "50%" }}
-              mt={{ base: 8, md: 0 }}
-              p={6}
-              borderWidth={1}
-              borderRadius="lg"
-              bg={isDarkMode ? "gray.700" : "gray.50"}
-            >
-              <Heading
-                as="h2"
-                size="md"
-                mb={4}
-                fontFamily="Montserrat, sans-serif"
-              >
+            <Box w={{ base: '100%', md: '50%' }} mt={{ base: 8, md: 0 }} p={6} borderWidth={1} borderRadius="lg" bg={isDarkMode ? '#3A3D42' : '#F8F9FA'}>
+              <Heading as="h2" size="md" mb={4} fontFamily="Montserrat, sans-serif">
                 Search
               </Heading>
               <Flex mb={6}>
@@ -366,8 +306,8 @@ const App = () => {
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  bg={isDarkMode ? "gray.600" : "white"}
-                  borderColor={isDarkMode ? "gray.500" : "gray.200"}
+                  bg="#FFFFFF"
+                  borderColor="#F8F9FA"
                 />
                 <Button ml={2} colorScheme="teal" aria-label="Search">
                   <SearchIcon />
@@ -375,48 +315,27 @@ const App = () => {
               </Flex>
 
               {/* Comments Section */}
-              <Heading
-                as="h3"
-                size="sm"
-                mb={2}
-                fontFamily="Montserrat, sans-serif"
-              >
+              <Heading as="h3" size="sm" mb={2} fontFamily="Montserrat, sans-serif">
                 Recent Comments
               </Heading>
               <VStack align="stretch" spacing={4} mb={6}>
                 {comments.map((comment) => (
-                  <Box
-                    key={comment.id}
-                    p={4}
-                    borderWidth={1}
-                    borderRadius="md"
-                    bg={isDarkMode ? "gray.600" : "white"}
-                  >
+                  <Box key={comment.id} p={4} borderWidth={1} borderRadius="md" bg={isDarkMode ? '#3A3D42' : '#FFFFFF'}>
                     <HStack justify="space-between" mb={2}>
-                      <Text
-                        fontWeight="bold"
-                        fontFamily="Open Sans, sans-serif"
-                      >
+                      <Text fontWeight="bold" fontFamily="Open Sans, sans-serif">
                         {comment.name}
                       </Text>
-                      <Text fontSize="sm" color={isDarkMode ? "blue.200" : "blue.500"}>
+                      <Text fontSize="sm" color="#A0C4E0">
                         {comment.email}
                       </Text>
                     </HStack>
-                    <Text fontFamily="Open Sans, sans-serif">
-                      {comment.body}
-                    </Text>
+                    <Text fontFamily="Open Sans, sans-serif">{comment.body}</Text>
                   </Box>
                 ))}
               </VStack>
 
               {/* Feedback Form */}
-              <Heading
-                as="h3"
-                size="sm"
-                mb={2}
-                fontFamily="Montserrat, sans-serif"
-              >
+              <Heading as="h3" size="sm" mb={2} fontFamily="Montserrat, sans-serif">
                 Feedback
               </Heading>
               <FormControl id="feedback" mb={4}>
@@ -425,33 +344,19 @@ const App = () => {
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
                   placeholder="Your feedback..."
-                  bg={isDarkMode ? "gray.600" : "white"}
-                  borderColor={isDarkMode ? "gray.500" : "gray.200"}
+                  bg="#FFFFFF"
+                  borderColor="#F8F9FA"
                 />
               </FormControl>
-              <Button
-                colorScheme="purple"
-                onClick={handleFeedback}
-                fontFamily="Open Sans, sans-serif"
-              >
+              <Button colorScheme="purple" onClick={handleFeedback} fontFamily="Open Sans, sans-serif">
                 Submit Feedback
               </Button>
             </Box>
           </Flex>
 
           {/* Profile Management */}
-          <Box
-            p={6}
-            borderWidth={1}
-            borderRadius="lg"
-            bg={isDarkMode ? "gray.700" : "gray.50"}
-          >
-            <Heading
-              as="h2"
-              size="md"
-              mb={4}
-              fontFamily="Montserrat, sans-serif"
-            >
+          <Box p={6} borderWidth={1} borderRadius="lg" bg={isDarkMode ? '#3A3D42' : '#F8F9FA'}>
+            <Heading as="h2" size="md" mb={4} fontFamily="Montserrat, sans-serif">
               Profile Management
             </Heading>
             <FormControl id="profile-username" mb={4}>
@@ -461,8 +366,8 @@ const App = () => {
                 value={formData.username}
                 onChange={handleChange}
                 placeholder="Enter your username"
-                bg={isDarkMode ? "gray.600" : "white"}
-                borderColor={isDarkMode ? "gray.500" : "gray.200"}
+                bg="#FFFFFF"
+                borderColor="#F8F9FA"
               />
             </FormControl>
             <FormControl id="profile-email" mb={4}>
@@ -472,8 +377,8 @@ const App = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter your email"
-                bg={isDarkMode ? "gray.600" : "white"}
-                borderColor={isDarkMode ? "gray.500" : "gray.200"}
+                bg="#FFFFFF"
+                borderColor="#F8F9FA"
               />
             </FormControl>
             <FormControl id="profile-password" mb={4}>
@@ -483,8 +388,8 @@ const App = () => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter your password"
-                bg={isDarkMode ? "gray.600" : "white"}
-                borderColor={isDarkMode ? "gray.500" : "gray.200"}
+                bg="#FFFFFF"
+                borderColor="#F8F9FA"
               />
             </FormControl>
             <Button colorScheme="blue" fontFamily="Open Sans, sans-serif">
@@ -495,12 +400,12 @@ const App = () => {
 
         {/* Footer */}
         <Box
-          bg={isDarkMode ? "gray.800" : "white"}
-          color={isDarkMode ? "white" : "gray.800"}
+          bg={isDarkMode ? '#3A3D42' : '#FFFFFF'}
+          color={isDarkMode ? '#F8F9FA' : '#3A3D42'}
           py={4}
           textAlign="center"
           borderTop="1px solid"
-          borderColor={isDarkMode ? "gray.600" : "gray.200"}
+          borderColor={isDarkMode ? '#F8F9FA' : '#E2D1F9'}
         >
           <Text fontFamily="Open Sans, sans-serif">
             &copy; {new Date().getFullYear()} MyApp. All rights reserved.

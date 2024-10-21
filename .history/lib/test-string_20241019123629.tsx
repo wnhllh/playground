@@ -199,7 +199,7 @@ const App = () => {
             icon={<HamburgerIcon />}
             variant="outline"
             onClick={onOpen}
-            display={{ base: "block", md: "none" }}
+            display={ base: "block", md: "none" }
             aria-label="Open Menu"
           />
           <HStack spacing={8} display={{ base: "none", md: "flex" }}>

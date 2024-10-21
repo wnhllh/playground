@@ -24,12 +24,12 @@ const SandpackContent = ({ code, isGenerating, id, selectedId }) => {
   return (
     <SandpackLayout>
       <SandpackPreview style={{ height: '1000px' }} />
-      {/* <SandpackCodeEditor 
+      <SandpackCodeEditor 
         showLineNumbers
         style={{ height: '1000px' }}
         // readOnly={isGenerating && id === selectedId} 
         readOnly={false} 
-      /> */}
+      />
     </SandpackLayout>
   );
 };
@@ -74,7 +74,30 @@ export const SandpackWrapper = ({ code, isGenerating, id, selectedId }) => {
           "styled-components": "^5.3.11",
           "@chakra-ui/react": "^2.6.1",
           "@chakra-ui/icons": "^2.1.1",
-          "lucide-react": "^0.274.0",
+          "lucide-react": "",          
+          // 日期和时间处理
+          "date-fns": "^2.30.0",
+          "moment": "^2.29.4",
+          "dayjs": "^1.11.9",
+          // 拖拽和排序
+          "react-beautiful-dnd": "^13.1.1",
+          "react-dnd": "^16.0.1",
+          "sortablejs": "^1.15.0",
+          // 富文本编辑器
+          "draft-js": "^0.11.7",
+          "quill": "^1.3.7",
+          "slate": "^0.94.1",
+          // 测试工具
+          "@testing-library/react": "^14.0.0",
+          "jest": "^29.6.2",
+          "cypress": "^12.17.3",
+          // 性能优化
+          "react-window": "^1.8.9",
+          "react-virtualized": "^9.22.5",
+          // 其他常用工具
+          "uuid": "^9.0.0",
+          "nanoid": "^4.0.2",
+          "js-cookie": "^3.0.5",
           // 数据获取和API
           "axios": "^1.4.0",
           "@tanstack/react-query": "^4.32.6",
