@@ -58,13 +58,6 @@ export const ResizableSidebar: React.FC<ResizableSidebarProps> = ({
         onMouseDown={onMouseDown}
         className="w-1 cursor-col-resize bg-gray-300"
         style={{ userSelect: 'none' }}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            onMouseDown(e as unknown as React.MouseEvent);
-          }
-        }}
       />
       <div className="flex-grow h-full">
         {mainContent}

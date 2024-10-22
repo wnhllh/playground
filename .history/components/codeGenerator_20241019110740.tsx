@@ -350,8 +350,7 @@ export const CodeGenerator = ({ id, defaultCode }) => {
       <SandpackWrapper
         code={codeToDisplay}
         isGenerating={isGenerating}
-        id={id}
-        selectedId={selectedId}
+        id={selectedId}
       />
     </div>
   );

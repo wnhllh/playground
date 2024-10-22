@@ -456,7 +456,7 @@ const App = () => {
       setError('生成代码时发生错误。请重试。')
       setIsGenerating(false)
 
-      // 错误消息添加到聊天历史
+      // 将错误消息添加到聊天历史
       setChatHistory(prevHistory => [
         ...prevHistory,
         {
@@ -605,15 +605,8 @@ const App = () => {
               <div
                 className="w-1 bg-gray-300 cursor-col-resize"
                 onMouseDown={startResizing}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    startResizing(e as unknown as React.MouseEvent);
-                  }
-                }}
               />
-              <div className="flex-1">
+              {/* <div className="flex-1">
                 <Viewport>
                   <Frame>
                     <Element is={Wrapper} canvas id="root_wrapper">
@@ -623,7 +616,7 @@ const App = () => {
                     </Element>
                   </Frame>
                 </Viewport>
-              </div>
+              </div> */}
             </div>
             {currentPageData && (
               <>

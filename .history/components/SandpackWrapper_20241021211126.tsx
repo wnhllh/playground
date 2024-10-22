@@ -92,14 +92,7 @@ export const SandpackWrapper = ({ code, isGenerating, id, selectedId }) => {
           "i18next": "^23.4.4",
           "@lingui/core": "^4.3.0",
           "@lingui/react": "^4.3.0",
-          // "tailwindcss/tailwind.css"
-          // Tailwind CSS
-          "tailwindcss": "^3.3.3",
-          "postcss": "^8.4.27",
-          "autoprefixer": "^10.4.14",
-          "@tailwindcss/forms": "^0.5.4",
-          "@tailwindcss/typography": "^0.5.9",
-          "@tailwindcss/aspect-ratio": "^0.4.2",
+          // ""
           // 地图和地理位置
           "@react-google-maps/api": "^2.19.2",
           "leaflet": "^1.9.4",

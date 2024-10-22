@@ -50,7 +50,7 @@ export const TextGenerator: React.FC<TextGeneratorProps> & UserComponent = ({ ch
           onChange={handleTextChange}
           onKeyDown={handleKeyDown}
           onBlur={toggleEdit}
-          // autoFocus
+          autoFocus
           className="w-full p-2 border rounded"
         />
       ) : (

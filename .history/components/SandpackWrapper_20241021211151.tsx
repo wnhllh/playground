@@ -97,9 +97,6 @@ export const SandpackWrapper = ({ code, isGenerating, id, selectedId }) => {
           "tailwindcss": "^3.3.3",
           "postcss": "^8.4.27",
           "autoprefixer": "^10.4.14",
-          "@tailwindcss/forms": "^0.5.4",
-          "@tailwindcss/typography": "^0.5.9",
-          "@tailwindcss/aspect-ratio": "^0.4.2",
           // 地图和地理位置
           "@react-google-maps/api": "^2.19.2",
           "leaflet": "^1.9.4",

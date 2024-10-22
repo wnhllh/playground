@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 import { useEditor } from '@craftjs/core';
 import { Components } from '@/components/node/components-map';
 import { PlaceholdersAndVanishInput } from '@/components/ui/placeholders-and-vanish-input';
-import { NavigationMenuLink } from "@radix-ui/react-navigation-menu"
 
 export interface SideMenuProps {
   componentsMap: Components[];

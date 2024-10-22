@@ -25,7 +25,7 @@ export default function HomePage() {
             Idea, Explore, Choose
           </h1>
           <h1 className='text-center text-[19px]'>
-            Less operations, more creative. Lets make UI design easier!
+            Less operations, more creative. Let's make UI design easier!
           </h1>
           <HostCard />
 

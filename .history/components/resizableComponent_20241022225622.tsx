@@ -63,13 +63,6 @@ export const ResizableComponent = ({id = '1', width = '100%', height = '100%', c
     >
       <div
         ref={(ref) => connect(drag(ref)) as any}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            // 触发拖动操作
-          }
-        }}
         style={{
           width: '100%',
           height: '100%',

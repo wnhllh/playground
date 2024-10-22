@@ -24,12 +24,12 @@ const SandpackContent = ({ code, isGenerating, id, selectedId }) => {
   return (
     <SandpackLayout>
       <SandpackPreview style={{ height: '1000px' }} />
-      {/* <SandpackCodeEditor 
+      <SandpackCodeEditor 
         showLineNumbers
         style={{ height: '1000px' }}
         // readOnly={isGenerating && id === selectedId} 
         readOnly={false} 
-      /> */}
+      />
     </SandpackLayout>
   );
 };

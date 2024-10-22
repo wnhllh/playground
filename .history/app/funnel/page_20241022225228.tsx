@@ -456,7 +456,7 @@ const App = () => {
       setError('生成代码时发生错误。请重试。')
       setIsGenerating(false)
 
-      // 错误消息添加到聊天历史
+      // ��错误消息添加到聊天历史
       setChatHistory(prevHistory => [
         ...prevHistory,
         {
@@ -605,7 +605,7 @@ const App = () => {
               <div
                 className="w-1 bg-gray-300 cursor-col-resize"
                 onMouseDown={startResizing}
-                role="button"
+                role="separator"
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
