@@ -47,6 +47,7 @@ const PaginationLink = ({
   <PaginationItem>
     <a
       aria-current={isActive ? "page" : undefined}
+      aria-label={`第 1 页`}
       className={cn(
         buttonVariants({
           variant: isActive ? "outline" : "ghost",

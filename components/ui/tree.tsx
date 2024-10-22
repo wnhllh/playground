@@ -53,7 +53,16 @@ const CustomNode = ({ data, updateNodeData, id }) => {
                     <button onClick={handleSave} style={{ marginTop: '10px' }}>Save</button>
                 </div>
             ) : (
-                <div onClick={() => setIsEditing(true)}>
+                <div 
+                    role="button" 
+                    tabIndex={0} 
+                    onClick={() => setIsEditing(true)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            setIsEditing(true);
+                        }
+                    }}
+                >
                     <h4 style={{ margin: '0 0 10px 0', fontSize: '16px' }}>{label}</h4>
                     <ul style={{ listStyleType: 'none', padding: '0', margin: '0' }}>
                         {items.map((item, index) => (

@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { SearchIcon } from "@/components/icons";
 import { Input } from "@nextui-org/input";
 import { GrAttachment } from "react-icons/gr";
