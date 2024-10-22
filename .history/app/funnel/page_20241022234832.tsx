@@ -640,11 +640,4 @@ const App = () => {
   )
 }
 
-// 修改默认导出
-export default function Page() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <App />
-    </Suspense>
-  )
-}
+export default App

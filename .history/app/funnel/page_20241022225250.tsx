@@ -1,6 +1,6 @@
 // @/app/funnel/page.tsx
 'use client'
-import React, { useEffect, useState, Suspense } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Editor, Frame, Element, useEditor } from '@craftjs/core'
 import { useSearchParams } from 'next/navigation'
 import { renderComponents } from '@/lib/componentRenderer'
@@ -640,11 +640,4 @@ const App = () => {
   )
 }
 
-// 修改默认导出
-export default function Page() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <App />
-    </Suspense>
-  )
-}
+export default App
