@@ -68,7 +68,7 @@ export default function Page() {
   }, [category]);
 
   const getCardList = async () => {
-    const res = await API.project.list({});
+    const res = await API.project.list({ pageNum: 1, pageSize: 10 });
     //
     setState({ dataSource: [] });
   };

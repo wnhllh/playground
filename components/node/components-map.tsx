@@ -467,7 +467,7 @@ export const componentsMap: Components[] = [
 					<AspectRatio ratio={16 / 9}>
 						<img
 							src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-							alt="Image"
+							alt="风景"
 						/>
 					</AspectRatio>
 				),
@@ -477,13 +477,13 @@ export const componentsMap: Components[] = [
 	},
 	{
 		name: 'Badge',
-		items: [
-			{
-				name: 'Badge',
-				demo: <Badge>Badge</Badge>,
-				node: <NodeBadge className="">Badge</NodeBadge>
-			}
-		]
+			items: [
+				{
+					name: 'Badge',
+					demo: <Badge>Badge</Badge>,
+					node: <NodeBadge className="">Badge</NodeBadge>
+				}
+			]
 	},
 	{
     name: 'Checkbox',
